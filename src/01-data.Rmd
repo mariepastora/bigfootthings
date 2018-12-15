@@ -10,9 +10,75 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(maps)
 library(here)
+library(lubridate)
+library(noncensus)
+library(janitor)
 ```
+# Data
+```{r}
+bf <- read_csv(here::here("src/pudding/bfro_reports_geocoded.csv"))
+data(states)
+
+bf <- bf %>% left_join(states, by = c("state" = "name")) %>% 
+  rename(state_abbr = state.y)
+```
+# Locations
+```{r}
+bf_dates <- bf %>% 
+  mutate(year = floor_date(date, "year"),
+         month = floor_date(date, "month")) %>% 
+  group_by(year) %>% 
+  summarise(total = n())
+
+ggplot(data = bf_dates, aes(x = year, y = total)) +
+  geom_bar(stat = "identity") +
+  xlim(c(as.Date("1950-01-01"), as.Date("2017-01-01")))
+```
+### States
+```{r}
+bf_states <- bf %>% 
+  group_by(state) %>% 
+  summarise(total = n())
+
+ggplot(data = bf_states, aes(x = state, y = total)) +
+  geom_bar(stat = "identity") + 
+  coord_flip()
+```
+### Region
+```{r}
+bf_region <- bf %>% 
+  group_by(region) %>% 
+  summarise(total = n())
+
+ggplot(data = bf_region, aes(x = region, y = total)) +
+  geom_bar(stat = "identity") + 
+  coord_flip()
+```
+# Weather
+### Rain
+```{r}
+tabyl(bf$precip_probability)
+raining <- bf %>% 
+  mutate(
+    rain_prob = case_when(
+      precip_probability == 0 ~ "not raining",
+      precip_probability <= .25 ~ "25%",
+      precip_probability <= .50 ~ "50%",
+      precip_probability <= .75 ~ "75%",
+      precip_probability <= 1 ~ "definitely raining"
+    )
+  ) %>% 
+  group_by(rain_prob) %>% 
+  summarise(total = n())
+
+ggplot(data = raining, aes(x = rain_prob, y = total)) +
+  geom_bar(stat = "identity")
+
+
+```
+### Moon Phase
 
 ```{r}
-bf <- read_csv(here::here("bfro_reports_geocoded.csv"))
+
 ```
 
