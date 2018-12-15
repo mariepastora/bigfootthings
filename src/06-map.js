@@ -24,7 +24,7 @@ let path = d3.geoPath().projection(projection)
 Promise.all([
   d3.json(require('./pudding/us.topojson')),
   d3.csv(require('./pudding/state_bf.csv')),
-  d3.csv(require('./pudding/all_points_5.csv'))
+  d3.csv(require('./pudding/dots_for_map.csv'))
 ])
   .then(ready)
   .catch(err => console.log('Failed on', err))
@@ -40,7 +40,7 @@ function ready([json, incarceration, allPoints]) {
 
   svg
     .append('g')
-    .attr('transform', 'translate(-140,-10) scale(1.22)')
+    //.attr('transform', 'translate(-140,-10) scale(1.22)')
     .selectAll('.state')
     .data(states.features)
     .enter()
@@ -61,17 +61,19 @@ function ready([json, incarceration, allPoints]) {
     .range([1,3.5])
     .clamp(true)
 
-  var xExtent = d3.extent(allPoints, d => +d.x)
-  var yExtent = d3.extent(allPoints, d => +d.y)
+  console.log(allPoints)
 
-  let jailExtent = d3.extent(allPoints, d => d.jail_black_2010/d.total_2010)
+  var xExtent = d3.extent(allPoints, d => +d.rounded_lng)
+  var yExtent = d3.extent(allPoints, d => +d.rounded_lat)
+
+  let jailExtent = d3.extent(allPoints, d => +d.concentration)
 
   var colorScale = d3.scaleSequential(d3.interpolatePlasma)
     .domain(jailExtent)
     .clamp(true)
 
-  let xPositionScale = d3.scaleLinear().domain(xExtent).range([0, width])
-  let yPositionScale = d3.scaleLinear().domain(yExtent).range([height, 0])
+  let xPositionScale = d3.scaleLinear().domain(xExtent).range([0, width*1.5])
+  let yPositionScale = d3.scaleLinear().domain(yExtent).range([height*1.5,0])
 
   svg.append('g')
     .lower()
@@ -79,10 +81,10 @@ function ready([json, incarceration, allPoints]) {
     .data(allPoints)
     .enter().append('circle')
     .attr('r', 2)
-    .attr('cx', d => xPositionScale(d.x))
-    .attr('cy', d => yPositionScale(d.y))
+    .attr('cx', d => xPositionScale(+d.rounded_lng))
+    .attr('cy', d => yPositionScale(+d.rounded_lat))
     .attr('fill', d => {
-      return colorScale(d.jail_black_2010/d.total_2010*50)
+      return colorScale(d.concentration*5)
     })
 
 }
