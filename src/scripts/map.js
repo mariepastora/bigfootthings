@@ -8,7 +8,7 @@ let height = 600 - margin.top - margin.bottom
 let width = 900 - margin.left - margin.right
 
 let svg = d3
-  .select('#chart-6')
+  .select('#map')
   .append('svg')
   .attr('height', height + margin.top + margin.bottom)
   .attr('width', width + margin.left + margin.right)
@@ -26,6 +26,7 @@ Promise.all([
   d3.json(require('./pudding/us.topojson')),
   d3.csv(require('./pudding/state_bf.csv')),
   d3.csv(require('./pudding/dots_without_alaska.csv'))
+
 ])
   .then(ready)
   .catch(err => console.log('Failed on', err))
