@@ -8,7 +8,7 @@ let height = 600 - margin.top - margin.bottom
 let width = 900 - margin.left - margin.right
 
 let svg = d3
-  .select('#chart-6')
+  .select('#map')
   .append('svg')
   .attr('height', height + margin.top + margin.bottom)
   .attr('width', width + margin.left + margin.right)
@@ -22,9 +22,9 @@ let projection = d3.geoAlbersUsa()
 let path = d3.geoPath().projection(projection)
 
 Promise.all([
-  d3.json(require('./pudding/us.topojson')),
-  d3.csv(require('./pudding/state_bf.csv')),
-  d3.csv(require('./pudding/dots_for_map.csv'))
+  d3.json(require('../data/us.topojson')),
+  d3.csv(require('../data/state_bf.csv')),
+  d3.csv(require('../data/dots_for_map.csv'))
 ])
   .then(ready)
   .catch(err => console.log('Failed on', err))
