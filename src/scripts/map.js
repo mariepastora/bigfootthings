@@ -23,9 +23,9 @@ let projection = d3.geoMercator().center([0, 41.83]).translate([width / 2, heigh
 let path = d3.geoPath().projection(projection)
 
 Promise.all([
-  d3.json(require('./pudding/us.topojson')),
-  d3.csv(require('./pudding/state_bf.csv')),
-  d3.csv(require('./pudding/dots_without_alaska.csv'))
+  d3.json(require('../data/us.topojson')),
+  d3.csv(require('../data/state_bf.csv')),
+  d3.csv(require('../data/dots_without_alaska.csv'))
 
 ])
   .then(ready)

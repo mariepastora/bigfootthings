@@ -34,9 +34,11 @@
   "dependencies": {
     "d3": "^5.7.0",
     "d3-geo-projection": "^2.4.1",
+    "gsap": "^2.0.2",
     "jest": "^23.6.0",
     "node-fetch": "^2.2.0",
     "parcel": "^1.10.3",
+    "scrollmagic": "^2.0.6",
     "topojson": "^3.0.2"
   }
 }
