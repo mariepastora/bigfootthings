@@ -34,6 +34,7 @@ svg {
   margin: 0 auto;
 }
 
+
 .title {
   font-family: 'Staatliches', cursive;
   color: #EFEFDC;
@@ -47,10 +48,6 @@ h1, h2, h3 {
   color: #EFEFDC;
 }
 
-.descripters {
-    font-family: 'Staatliches', cursive;
-    background: #87717A;
-}
 
 .container {
   max-width: 46rem;
@@ -116,4 +113,27 @@ img.block {
 
 /* .step > ul, .step > h2, .step > h3 {
   background: #1a0846;
-}           */
+}
+       */
+ #hist .axis text {
+  fill: "white";
+}
+
+ #hist .axis line
+ {
+  stroke: "white";
+  stroke-width: 0.5px;
+}
+
+ #hist .axis .domain {
+  stroke: "white";
+  stroke-width: 0.5px;
+}
+
+ #hist .axis {
+  font-size: 12px;
+}
+
+.tick {
+  stroke: "white"
+}

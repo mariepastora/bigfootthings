@@ -6,6 +6,12 @@ let height = 400 - margin.top - margin.bottom
 
 let width = 600 - margin.left - margin.right
 
+let margin_bf = { top: 50, left: 50, right: 50, bottom: 50 }
+
+let height_bf = 400
+
+let width_bf = 200
+
 let svg = d3
   .select('#hist')
   .append('svg')
@@ -23,6 +29,11 @@ let svg = d3
     var colorScale = d3.scaleOrdinal()
     .range(['#87717A', '#B9A994', '#E7E0E9', '#F5DCE6', '#9B6970', '#D39DA4', '#B2AC84', '#FFCDD4'])
 
+var bfSVG = d3
+  .select("#test")
+  .attr('height', height_bf )
+  .attr('width', width_bf )
+  .attr('transform', 'translate(' + margin_bf.left + ',' + margin_bf.top + ')')
 
 d3.csv(require('../data/hist_data.csv'))
   .then(ready)
@@ -34,7 +45,6 @@ function ready(datapoints) {
   })
   console.log(words)
   xPositionScale.domain(words)
-
 
   // Add and style your marks here
   svg
@@ -73,6 +83,13 @@ function ready(datapoints) {
       .attr('height', function(d) {
         return heightScale(d.n)
       })
+
+      bfSVG
+      .attr('width', width_bf + 20)
+      .selectAll('polygon')
+      .attr('stroke', 'white')
+      .attr('fill', 'lightgrey')
+
   })
 
   d3.select('#tall').on('stepin', () => {
@@ -90,6 +107,10 @@ function ready(datapoints) {
       .attr('height', function(d) {
         return heightScale(d.n)
       })
+    bfSVG
+      // .attr('width', width_bf + 20)
+      .selectAll('polygon')
+      .attr('fill', 'yellow')
   })
 
   d3.select('#hairy').on('stepin', () => {
@@ -108,18 +129,25 @@ function ready(datapoints) {
       .attr('height', function(d) {
         return heightScale(d.n)
       })
+
+      bfSVG
+      // .attr('width', width_bf + 20)
+      .selectAll('polygon')
+      .attr('fill', 'brown')
   })
 
-  // var yAxis = d3.axisLeft(heightScale)
-  // svg
-  //   .append('g')
-  //   .attr('class', 'axis y-axis')
-  //   .call(yAxis)
-  //
-  // var xAxis = d3.axisBottom(xPositionScale)
-  // svg
-  //   .append('g')
-  //   .attr('class', 'axis x-axis')
-  //   .attr('transform', 'translate(0,' + height + ')')
-  //   .call(xAxis)
+
+
+  var yAxis = d3.axisLeft(heightScale)
+  svg
+    .append('g')
+    .attr('class', 'axis')
+    .call(yAxis)
+
+  var xAxis = d3.axisBottom(xPositionScale)
+  svg
+    .append('g')
+    .attr('class', 'axis')
+    .attr('transform', 'translate(0,' + height + ')')
+    .call(xAxis)
 }
