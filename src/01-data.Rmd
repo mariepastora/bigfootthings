@@ -16,7 +16,7 @@ library(janitor)
 ```
 # Data
 ```{r}
-bf <- read_csv(here::here("src/pudding/bfro_reports_geocoded.csv"))
+bf <- read_csv(here::here("src/data/bfro_reports_geocoded.csv"))
 data(states)
 
 bf <- bf %>% left_join(states, by = c("state" = "name")) %>% 
@@ -76,9 +76,40 @@ ggplot(data = raining, aes(x = rain_prob, y = total)) +
 
 
 ```
-### Moon Phase
+### County
 
 ```{r}
+bf %>% 
+  group_by(county, state) %>% 
+  summarise(x = n()) %>% 
+  arrange(-x)
+```
 
+```{r}
+library(spacyr)
+library(tidytext)
+spacy_install()
+d <- spacy_parse(bf$title)
+adj <- d %>% filter(pos == "ADJ")
+
+
+most_adj <- adj %>% 
+  mutate(token = tolower(token)) %>% 
+  group_by(token) %>% 
+  summarise(n = n()) %>% 
+  arrange(-n)
+
+hist_data <- most_adj %>% 
+  filter(token == "large"|
+           token == "tall"|
+           token == "hairy"|
+           token == "upright"|
+           token == "white"|
+           token == "black"|
+           token == "huge"|
+           token == "small")
+
+write_csv(hist_data, "hist_data.csv")
+  
 ```
 

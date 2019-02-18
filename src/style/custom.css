@@ -34,24 +34,22 @@ svg {
   margin: 0 auto;
 }
 
-h1 {
-  margin-bottom: 3rem;
-  font-size: 18vh;
-
-}
-
 .title {
   font-family: 'Staatliches', cursive;
   color: #EFEFDC;
 }
 
-p {
-  color: "green";
-}
 
-h3 {
+h1, h2, h3 {
   margin-top: 3rem;
   margin-bottom: 1rem;
+  font-family: 'Staatliches', cursive;
+  color: #EFEFDC;
+}
+
+.descripters {
+    font-family: 'Staatliches', cursive;
+    background: #87717A;
 }
 
 .container {
@@ -77,9 +75,33 @@ img.block {
   stroke-opacity: .5;
 }
 
+
+
+/* icon */
+.icon {
+  fill: white;
+  width: 50%;
+}
+
+.sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  align-self: flex-start;
+          }
+ /* .step.entered {
+            -webkit-transform-style: preserve-3d;
+            -moz-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+            -webkit-transition: 1.5s background;
+            -moz-transition: 1.5s background;
+            transition: 1.5s background;
+            background: #fff888;
+          } */
+
 /* steps */
 .step {
-  min-height: 125vh;
+  min-height: 75vh;
 }
 
 .step > p {
@@ -92,12 +114,6 @@ img.block {
   border-radius: 25px;
 }
 
-.step > ul, .step > h2, .step > h3 {
+/* .step > ul, .step > h2, .step > h3 {
   background: #1a0846;
-}
-
-/* icon */
-.icon {
-  fill: white;
-  width: 50%;
-}
+}           */
