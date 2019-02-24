@@ -40,6 +40,15 @@ svg {
   color: #EFEFDC;
 }
 
+#title-wrapper{
+text-align:center;
+width:100%;
+  position:absolute;
+  margin-top:-40%;
+  display:block;
+
+}
+
 
 h1, h2, h3 {
   margin-top: 3rem;
@@ -47,7 +56,9 @@ h1, h2, h3 {
   font-family: 'Staatliches', cursive;
   color: #EFEFDC;
 }
-
+h1{
+  font-size:4rem;
+}
 
 .container {
   max-width: 46rem;
@@ -137,3 +148,4 @@ img.block {
 .tick {
   stroke: "white"
 }
+
