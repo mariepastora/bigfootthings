@@ -1,4 +1,5 @@
 import * as d3 from 'd3'
+import * as mimeType from 'mime-types'
 
 let margin = { top: 50, left: 50, right: 50, bottom: 50 }
 
@@ -29,18 +30,22 @@ let svg = d3
     var colorScale = d3.scaleOrdinal()
     .range(['#87717A', '#B9A994', '#E7E0E9', '#F5DCE6', '#9B6970', '#D39DA4', '#B2AC84', '#FFCDD4'])
 
-d3.xml("../bigfoot2.svg", "image/svg+xml", function(xml) {
-  document.getElementById('atom').appendChild(xml.documentElement);
-  window.setInterval(redElectron.draw,50);
-  window.setInterval(purpleElectron.draw,45);
-  window.setInterval(dash.draw,45);
+var chartDiv = document.getElementById("bigfoot_draw");
+
+// load the external svg from a file
+d3.xml("../bigfoot2.svg").mimeType("image/svg+xml").get(function(error, xml) {
+ var importedNode = document.importNode(xml.documentElement, true);
+ d3.select("div#bigfoot_draw")
+ .each(function() {
+   this.appendChild(importedNode);
+ })
 });
-var bfSVG = d3
-  .select(".bigfoot_draw")
-  .attr('height', height_bf )
-  .attr('width', width_bf )
-  .attr('class', 'bigfoot_draw')
-  .attr('transform', 'translate(' + margin_bf.left + ',' + margin_bf.top + ')')
+// var bfSVG = d3
+//   .select("#bigfoot_draw")
+//   .attr('height', height_bf )
+//   .attr('width', width_bf )
+//   .attr('transform', 'translate(' + margin_bf.left + ',' + margin_bf.top + ')')
+
 
 d3.csv(require('../data/hist_data.csv'))
   .then(ready)
@@ -114,10 +119,10 @@ function ready(datapoints) {
       .attr('height', function(d) {
         return heightScale(d.n)
       })
-
-var fur_layer = d3.select('#Fur_12')
-
-fur_layer.selectAll('.cls-2').style('visibility:hidden')
+// bfSVG.selectAll('path').style('fill', 'purple')
+// var fur_layer = d3.select('#Fur_12')
+//
+// fur_layer.selectAll('.cls-2').style('visibility:hidden')
 
   })
 
@@ -138,10 +143,10 @@ fur_layer.selectAll('.cls-2').style('visibility:hidden')
         return heightScale(d.n)
       })
 
-      bfSVG
-      // .attr('width', width_bf + 20)
-      .selectAll('polygon')
-      .attr('fill', 'brown')
+      // bfSVG
+      // // .attr('width', width_bf + 20)
+      // .selectAll('polygon')
+      // .attr('fill', 'brown')
   })
 
 
@@ -159,3 +164,16 @@ fur_layer.selectAll('.cls-2').style('visibility:hidden')
     .attr('transform', 'translate(0,' + height + ')')
     .call(xAxis)
 }
+
+
+// function steps() {
+//   d3.select('#hairy').on('stepin', () => {
+//       console.log("step 2")
+//     // Grab all the bars, make them 0
+//       bfSVG
+//       // .attr('width', width_bf + 20)
+//       .selectAll('polygon')
+//       .attr('fill', 'brown')
+//   })
+
+// }

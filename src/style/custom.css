@@ -63,6 +63,7 @@ h1{
 .container {
   max-width: 46rem;
   margin-top:5rem;
+  position:relative;
 }
 
 img.block {
@@ -93,10 +94,10 @@ img.block {
 }
 
 .sticky {
-  position: -webkit-sticky;
-  position: sticky;
-  top: 10vh;
-  align-self: flex-start;
+  position: -webkit-sticky !important;
+  position: sticky !important;
+  top: 10vh !important;
+  align-self: flex-start !important;
 
           }
  /* .step.entered {
@@ -150,13 +151,14 @@ img.block {
 .tick {
   stroke: "white"
 }
-<<<<<<< HEAD
-=======
+
 .container p{
   font-family: 'Helvetica', cursive;
+  background: #87717A;
   color: white;
   padding: 15px 15px;
   margin-bottom: 0;
   border-radius: 25px;
+  margin-bottom:5rem;
   text-align: justify
 }

@@ -37,6 +37,7 @@
     "enter-view": "^2.0.0",
     "gsap": "^2.0.2",
     "jest": "^23.6.0",
+    "mime-types": "^2.1.22",
     "node-fetch": "^2.2.0",
     "parcel": "^1.10.3",
     "scrollmagic": "^2.0.6",
