@@ -94,8 +94,9 @@ img.block {
 .sticky {
   position: -webkit-sticky;
   position: sticky;
-  top: 0;
+  top: 10vh;
   align-self: flex-start;
+
           }
  /* .step.entered {
             -webkit-transform-style: preserve-3d;
@@ -148,4 +149,3 @@ img.block {
 .tick {
   stroke: "white"
 }
-
